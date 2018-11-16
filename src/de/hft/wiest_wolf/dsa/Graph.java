@@ -39,6 +39,16 @@ public class Graph
         //create Edge based on data in line
     }
 
+    public ArrayList<Vertex> getKnoten()
+    {
+        return (ArrayList<Vertex>) knoten.clone();
+    }
+
+    public ArrayList<Edge> getKanten()
+    {
+        return (ArrayList<Edge>) kanten.clone();
+    }
+
     public int getGrad(String knotenName)
     {
         throw new UnsupportedOperationException("Not yet implemented");
