@@ -24,7 +24,7 @@ public class Graph
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public Graph(String[] input)
+    public Graph(String input)
     {
         // check length minimum 3
         // check for count of Vertexes
