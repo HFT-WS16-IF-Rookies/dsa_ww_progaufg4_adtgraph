@@ -88,7 +88,7 @@ public class GraphTest
     {
         Graph instance = new Graph(new File("./exampleGraphFile.txt"));
         String start = "E";
-        String expected = null; // TODO: enter the expected String^^
+        String expected = "E, B, A, C, D, G, F, I, J, K, H";
 
         PrintStream orgStream = System.out;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
