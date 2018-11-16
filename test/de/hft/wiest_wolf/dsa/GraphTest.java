@@ -2,8 +2,10 @@ package de.hft.wiest_wolf.dsa;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
 
@@ -61,5 +63,69 @@ public class GraphTest
             () -> assertEquals(3, instance.getGrad("J")),
             () -> assertEquals(3, instance.getGrad("K"))
         );
+    }
+
+    @Test
+    public void testEulerGraph()
+    {
+        assertAll
+        (
+            () ->
+            {
+                Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+                assertTrue(instance.isEulerGraph());
+            },
+            () ->
+            {
+                Graph instance = new Graph(new File("./nonEulerGraph.txt"));
+                assertFalse(instance.isEulerGraph());
+            }
+        );
+    }
+
+    @Test
+    public void testTiefenSuche()
+    {
+        Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+        String start = "E";
+        String expected = null; // TODO: enter the expected String^^
+
+        PrintStream orgStream = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try
+        {
+            PrintStream redirectStream = new PrintStream(baos);
+            System.setOut(redirectStream);
+            instance.tiefensuche(start);
+        }
+        finally
+        {
+            System.out.flush();
+            System.setOut(orgStream);
+        }
+        assertEquals(expected, baos.toString());
+    }
+
+    @Test
+    public void testBreitenSuche()
+    {
+        Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+        String start = "E";
+        String expected = null; // TODO: enter the expected String^^
+
+        PrintStream orgStream = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try
+        {
+            PrintStream redirectStream = new PrintStream(baos);
+            System.setOut(redirectStream);
+            instance.breitensuche(start);
+        }
+        finally
+        {
+            System.out.flush();
+            System.setOut(orgStream);
+        }
+        assertEquals(expected, baos.toString());
     }
 }
