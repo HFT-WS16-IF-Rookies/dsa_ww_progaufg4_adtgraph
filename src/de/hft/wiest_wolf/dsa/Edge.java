@@ -1,5 +1,7 @@
 package de.hft.wiest_wolf.dsa;
 
+import java.util.Objects;
+
 /**
  *
  * @author Lukas Wiest
@@ -16,5 +18,24 @@ public class Edge
         this.v0 = v0;
         this.v1 = v1;
         this.w  = w;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(v0, v1);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Edge))
+            return false;
+        Edge other = (Edge) obj;
+        return Objects.equals(v0, other.v0) && Objects.equals(v1, other.v1);
     }
 }
