@@ -20,6 +20,21 @@ public class Edge
         this.w  = w;
     }
 
+    public Vertex getVertex_0()
+    {
+        return v0;
+    }
+
+    public Vertex getVertex_1()
+    {
+        return v1;
+    }
+
+    public double getWeight()
+    {
+        return w;
+    }
+
     @Override
     public int hashCode()
     {
