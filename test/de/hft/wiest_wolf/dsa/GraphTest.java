@@ -24,8 +24,8 @@ public class GraphTest
 
         assertAll
         (
-            () -> assertEquals(11, instance.getKnoten().size(), "test count of vertexes"),
-            () -> assertEquals(18, instance.getKanten().size(), "test count of edges")
+            () -> assertEquals(11, instance.getVertexCount(), "test count of vertexes"),
+            () -> assertEquals(18, instance.getEdgeCount(), "test count of edges")
         );
     }
 
