@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 public class GraphTest
 {
     @Test
-    public void testConstructor()
+    public void testConstructor() throws FileNotFoundException
     {
         Graph instance = new Graph(new File("./exampleGraphFile.txt"));
 
@@ -46,7 +46,7 @@ public class GraphTest
     }
 
     @Test
-    public void testGetGrad()
+    public void testGetGrad() throws FileNotFoundException
     {
         Graph instance = new Graph(new File("./exampleGraphFile.txt"));
         assertAll
@@ -84,7 +84,7 @@ public class GraphTest
     }
 
     @Test
-    public void testTiefenSuche()
+    public void testTiefenSuche() throws FileNotFoundException
     {
         Graph instance = new Graph(new File("./exampleGraphFile.txt"));
         String start = "E";
@@ -107,7 +107,7 @@ public class GraphTest
     }
 
     @Test
-    public void testBreitenSuche()
+    public void testBreitenSuche() throws FileNotFoundException
     {
         Graph instance = new Graph(new File("./exampleGraphFile.txt"));
         String start = "E";

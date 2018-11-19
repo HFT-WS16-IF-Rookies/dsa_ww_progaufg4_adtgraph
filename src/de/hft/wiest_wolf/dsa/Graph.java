@@ -18,7 +18,7 @@ public class Graph
     private HashSet<Edge>       kanten;
     private HashSet<Edge>[]     nachbarn;
 
-    public Graph(File inputFile)
+    public Graph(File inputFile) throws FileNotFoundException
     {
         knoten = new HashSet<>();
         kanten = new HashSet<>();
@@ -43,10 +43,6 @@ public class Graph
                 if (line.length() > 0)
                     createEdgeFromString(line);
             }
-        }
-        catch (FileNotFoundException e)
-        {
-            // TODO: something valid
         }
     }
 
