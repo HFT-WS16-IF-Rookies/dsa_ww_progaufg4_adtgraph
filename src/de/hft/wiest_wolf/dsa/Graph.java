@@ -35,7 +35,7 @@ public class Graph
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private void processInput(String line)
+    private void createEdgeFromString(String line)
     {
         //create Edge based on data in line
     }
