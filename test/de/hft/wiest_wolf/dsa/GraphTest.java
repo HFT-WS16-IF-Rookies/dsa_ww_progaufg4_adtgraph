@@ -73,12 +73,12 @@ public class GraphTest
             () ->
             {
                 Graph instance = new Graph(new File("./exampleGraphFile.txt"));
-                assertTrue(instance.isEulerGraph());
+                assertFalse(instance.isEulerGraph());
             },
             () ->
             {
-                Graph instance = new Graph(new File("./nonEulerGraph.txt"));
-                assertFalse(instance.isEulerGraph());
+                Graph instance = new Graph(new File("./eulerGraph.txt"));
+                assertTrue(instance.isEulerGraph());
             }
         );
     }
