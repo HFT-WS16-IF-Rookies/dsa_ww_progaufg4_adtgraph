@@ -38,7 +38,7 @@ public class Edge
     @Override
     public int hashCode()
     {
-        return Objects.hash(v0, v1);
+        return Objects.hash(v0, v1, w);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class Edge
         if (!(obj instanceof Edge))
             return false;
         Edge other = (Edge) obj;
-        return Objects.equals(v0, other.v0) && Objects.equals(v1, other.v1);
+        return Objects.equals(v0, other.v0) && Objects.equals(v1, other.v1)
+                && Double.doubleToLongBits(w) == Double.doubleToLongBits(other.w);
     }
 }
