@@ -3,6 +3,7 @@ package de.hft.wiest_wolf.dsa;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -120,7 +121,44 @@ public class Graph
 
     public void tiefensuche(String nameStartknoten)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        HashSet<Vertex> visited = new HashSet<>();
+        LinkedList<Vertex> order = new LinkedList<>();
+        Vertex start = knoten.stream()
+                .filter(v -> v.getName().equals(nameStartknoten))
+                .findFirst()
+                .get();
+        tiefensucheRekursiv(visited, order, start);
+
+        StringBuilder buf = new StringBuilder();
+        for (Vertex v: order)
+        {
+            buf.append(v.getName());
+            buf.append(", ");
+        }
+        for (int i=0; i<2;i++)
+            buf.deleteCharAt(buf.length()-1);
+
+        System.out.print(buf.toString());
+    }
+
+    private void tiefensucheRekursiv(HashSet<Vertex> visited, LinkedList<Vertex> order, Vertex current)
+    {
+        visited.add(current);
+        order.addLast(current);
+        nachbarn[current.getId()-1]
+                .stream()
+                .map(e ->
+                {
+                    if (e.getVertex_0().equals(current))
+                        return e.getVertex_1();
+                    else
+                        return e.getVertex_0();
+                }).sorted((v0, v1) -> v0.getId() - v1.getId())
+                .forEach(v ->
+                {
+                    if (!visited.contains(v))
+                        tiefensucheRekursiv(visited, order, v);
+                });
     }
 
     public void breitensuche(String nameStartknoten)
