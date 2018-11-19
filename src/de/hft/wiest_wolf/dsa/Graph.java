@@ -1,7 +1,9 @@
 package de.hft.wiest_wolf.dsa;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashSet;
+import java.util.Scanner;
 
 /**
  *
@@ -16,13 +18,34 @@ public class Graph
 
     public Graph(File inputFile)
     {
-        // check if file exists
-        // open file readonly
-        // read first line and check count of Vertexes
-        // read next line, split and check if array has expected length
-        // create vertexes
-        // for leftover lines create edges between vertexes
-        throw new UnsupportedOperationException("Not yet implemented");
+        knoten = new HashSet<>();
+        kanten = new HashSet<>();
+
+        try (Scanner in = new Scanner(inputFile, "utf-8"))
+        {
+            int vertexCount = in.nextInt(); in.nextLine();
+            String[] vertexNames = in.nextLine().split(",");
+            if (vertexCount != vertexNames.length)
+                throw new ADTException.VertexCountMismatchException(vertexCount, vertexNames.length);
+
+            for (String v: vertexNames)
+                knoten.add(new Vertex(v.trim()));
+
+            nachbarn = new HashSet[knoten.size()];
+            for (int i=0; i<nachbarn.length; i++)
+                nachbarn[i] = new HashSet<>();
+
+            while (in.hasNextLine())
+            {
+                String line = in.nextLine();
+                if (line.length() > 0)
+                    createEdgeFromString(line);
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            // TODO: something valid
+        }
     }
 
     public Graph(String input)
@@ -37,8 +60,23 @@ public class Graph
 
     private void createEdgeFromString(String line)
     {
-        //create Edge based on data in line
-    }
+        String[] split = line.split(" ");
+        Vertex v0 = knoten
+                .stream()
+                .filter(v -> v.getId() == Integer.valueOf(split[0]))
+                .findFirst()
+                .get();
+        Vertex v1 = knoten
+                .stream()
+                .filter(v -> v.getId() == Integer.valueOf(split[1]))
+                .findFirst()
+                .get();
+
+        Edge e = new Edge(v0, v1, Double.valueOf(split[2]));
+        kanten.add(e);
+        nachbarn[v0.getId()-1].add(e);
+        nachbarn[v1.getId()-1].add(e);
+;    }
 
     public int getVertexCount()
     {
