@@ -12,6 +12,8 @@ import java.util.Scanner;
  */
 public class Graph
 {
+    private int vertexIdCounter = 0;
+
     private HashSet<Vertex>     knoten;
     private HashSet<Edge>       kanten;
     private HashSet<Edge>[]     nachbarn;
@@ -29,7 +31,7 @@ public class Graph
                 throw new ADTException.VertexCountMismatchException(vertexCount, vertexNames.length);
 
             for (String v: vertexNames)
-                knoten.add(new Vertex(v.trim()));
+                knoten.add(new Vertex(++vertexIdCounter, v.trim()));
 
             nachbarn = new HashSet[knoten.size()];
             for (int i=0; i<nachbarn.length; i++)
@@ -80,17 +82,23 @@ public class Graph
 
     public int getVertexCount()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return knoten.size();
     }
 
     public int getEdgeCount()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return kanten.size();
     }
 
     public int getGrad(String knotenName)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        int id = knoten.stream()
+                .filter(v -> v.getName().equals(knotenName))
+                .findFirst()
+                .get()
+                .getId();
+
+        return nachbarn[id-1].size();
     }
 
     public boolean isEulerGraph()
