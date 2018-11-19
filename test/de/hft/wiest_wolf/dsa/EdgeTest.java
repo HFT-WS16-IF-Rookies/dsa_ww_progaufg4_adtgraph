@@ -15,8 +15,8 @@ public class EdgeTest
     @Test
     public void testConstructor()
     {
-        Vertex v0 = new Vertex("A");
-        Vertex v1 = new Vertex("B");
+        Vertex v0 = new Vertex(1, "A");
+        Vertex v1 = new Vertex(2, "B");
         double weight = 5;
         Edge expected = new Edge(v0, v1, weight);
 
@@ -30,11 +30,11 @@ public class EdgeTest
         (
             () -> assertThrows(IllegalArgumentException.class, () ->
                 {
-                    new Edge(null, new Vertex("A"), 5);
+                    new Edge(null, new Vertex(1, "A"), 5);
                 }),
             () -> assertThrows(IllegalArgumentException.class, () ->
                 {
-                    new Edge(new Vertex("A"), null, 5);
+                    new Edge(new Vertex(1, "A"), null, 5);
                 })
         );
     }

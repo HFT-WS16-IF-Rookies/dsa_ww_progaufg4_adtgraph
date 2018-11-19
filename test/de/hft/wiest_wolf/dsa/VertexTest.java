@@ -14,12 +14,11 @@ public class VertexTest
     @Test
     public void testConstructor()
     {
-        int current = Vertex.getVertexCount();
-        Vertex instance = new Vertex("A");
+        Vertex instance = new Vertex(1, "A");
         assertAll
         (
                 () -> assertEquals("A", instance.getName()),
-                () -> assertEquals(current + 1, instance.getId())
+                () -> assertEquals(1, instance.getId())
         );
     }
 
@@ -30,25 +29,12 @@ public class VertexTest
         (
             () -> assertThrows(IllegalArgumentException.class, () ->
                 {
-                    new Vertex("");
+                    new Vertex(1, "");
                 }),
             () -> assertThrows(IllegalArgumentException.class, () ->
                 {
-                    new Vertex(null);
+                    new Vertex(1, null);
                 })
         );
-    }
-
-    @Test
-    public void testVertexIdCounter()
-    {
-        int current = Vertex.getVertexCount();
-
-        for (int i=5; i>0; i--)
-        {
-            new Vertex("test");
-        }
-
-        assertEquals(current + 5, Vertex.getVertexCount());
     }
 }
