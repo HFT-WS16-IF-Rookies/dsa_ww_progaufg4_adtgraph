@@ -48,12 +48,28 @@ public class Graph
 
     public Graph(String input)
     {
-        // check length minimum 3
-        // check for count of Vertexes
-        // split Vertexes and cheeck if array has expected length
-        // create vertexes
-        // for leftover lines create edges between vertexes
-        throw new UnsupportedOperationException("Not yet implemented");
+        String[] lines = input.split("\n");
+        if (lines.length < 3)
+            throw new IllegalArgumentException();
+
+        int vertexCount = Integer.valueOf(lines[0]);
+        String[] vertexNames = lines[1].split(",");
+        if (vertexCount != vertexNames.length)
+            throw new ADTException.VertexCountMismatchException(vertexCount, vertexNames.length);
+
+        for (String v: vertexNames)
+            knoten.add(new Vertex(++vertexIdCounter, v.trim()));
+
+        nachbarn = new HashSet[knoten.size()];
+        for (int i=0; i<nachbarn.length; i++)
+            nachbarn[i] = new HashSet<>();
+
+        for (int i=2; i<lines.length; i++)
+        {
+            String line = lines[i];
+            if (line.length() > 0)
+                createEdgeFromString(line);
+        }
     }
 
     private void createEdgeFromString(String line)
