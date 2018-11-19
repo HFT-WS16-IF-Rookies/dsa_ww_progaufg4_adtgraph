@@ -1,7 +1,7 @@
 package de.hft.wiest_wolf.dsa;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -10,8 +10,9 @@ import java.util.ArrayList;
  */
 public class Graph
 {
-    private ArrayList<Vertex>   knoten;
-    private ArrayList<Edge>     kanten;
+    private HashSet<Vertex>     knoten;
+    private HashSet<Edge>       kanten;
+    private HashSet<Edge>[]     nachbarn;
 
     public Graph(File inputFile)
     {
