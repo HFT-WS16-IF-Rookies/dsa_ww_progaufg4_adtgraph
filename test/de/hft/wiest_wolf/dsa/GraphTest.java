@@ -20,7 +20,7 @@ public class GraphTest
     @Test
     public void testConstructor() throws FileNotFoundException
     {
-        Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+        Graph instance = new Graph(new File("./additionalFiles/exampleGraphFile.txt"));
 
         assertAll
         (
@@ -48,7 +48,7 @@ public class GraphTest
     @Test
     public void testGetGrad() throws FileNotFoundException
     {
-        Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+        Graph instance = new Graph(new File("./additionalFiles/exampleGraphFile.txt"));
         assertAll
         (
             () -> assertEquals(3, instance.getGrad("A")),
@@ -72,12 +72,12 @@ public class GraphTest
         (
             () ->
             {
-                Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+                Graph instance = new Graph(new File("./additionalFiles/exampleGraphFile.txt"));
                 assertFalse(instance.isEulerGraph());
             },
             () ->
             {
-                Graph instance = new Graph(new File("./eulerGraph.txt"));
+                Graph instance = new Graph(new File("./additionalFiles/eulerGraph.txt"));
                 assertTrue(instance.isEulerGraph());
             }
         );
@@ -86,7 +86,7 @@ public class GraphTest
     @Test
     public void testTiefenSuche() throws FileNotFoundException
     {
-        Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+        Graph instance = new Graph(new File("./additionalFiles/exampleGraphFile.txt"));
         String start = "E";
         String expected = "E, B, A, C, D, G, F, I, J, K, H";
 
@@ -109,7 +109,7 @@ public class GraphTest
     @Test
     public void testBreitenSuche() throws FileNotFoundException
     {
-        Graph instance = new Graph(new File("./exampleGraphFile.txt"));
+        Graph instance = new Graph(new File("./additionalFiles/exampleGraphFile.txt"));
         String start = "E";
         String expected = "E, B, I, F, C, A, J, G, D, K, H";
 
