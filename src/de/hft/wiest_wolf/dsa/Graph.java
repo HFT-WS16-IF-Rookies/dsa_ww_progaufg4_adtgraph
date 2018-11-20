@@ -18,6 +18,8 @@ public class Graph
     private HashSet<Vertex>     knoten;
     private HashSet<Edge>       kanten;
     private HashSet<Edge>[]     nachbarn;
+    
+    private Vertex currentV;
 
     public Graph(File inputFile) throws FileNotFoundException
     {
@@ -163,6 +165,48 @@ public class Graph
 
     public void breitensuche(String nameStartknoten)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        HashSet<Vertex> visited = new HashSet<>();
+        LinkedList<Vertex> order = new LinkedList<>();
+        
+        Vertex start = knoten.stream()
+                .filter(v -> v.getName().equals(nameStartknoten))
+                .findFirst()
+                .get();
+        visited.add(start);
+        currentV = start;
+        while(visited.size() >= knoten.size())
+        {
+            
+            nachbarn[currentV.getId()-1]
+                    .stream()
+                    .sorted((e0, e1) -> Double.compare(e0.getWeight() , e1.getWeight()))
+                    .map(e ->
+                        {
+                            if (e.getVertex_0().equals(currentV))
+                                return e.getVertex_1();
+                            else
+                                return e.getVertex_0();
+                        })
+                    .forEach(v ->
+                    {
+                        if (!visited.contains(v))
+                        {
+                            order.add(v);
+                        }
+                    });
+            currentV = order.pollFirst();
+            visited.add(start);
+        }
+        StringBuilder buf = new StringBuilder();
+        for (Vertex v: visited)
+        {
+            buf.append(v.getName());
+            buf.append(", ");
+        }
+        for (int i=0; i<2;i++)
+            buf.deleteCharAt(buf.length()-1);
+
+        System.out.print(buf.toString());
+        
     }
 }
