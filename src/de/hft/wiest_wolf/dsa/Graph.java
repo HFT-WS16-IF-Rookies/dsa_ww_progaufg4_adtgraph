@@ -177,7 +177,7 @@ public class Graph
         visited.add(start);
         currentV = start;
         order.add(currentV);
-        while(visited.size() <= knoten.size())
+        while(true)
         {
             
             nachbarn[currentV.getId()-1]
@@ -197,13 +197,12 @@ public class Graph
                             queue.addLast(v);
                         }
                     });
-            if(!queue.isEmpty())
+            if((currentV = queue.pollFirst()) == null)
             {
-                currentV = queue.pollFirst();
-                visited.add(currentV);
-                order.add(currentV);
+                break;
             }
-            
+            visited.add(currentV);
+            order.add(currentV);
 
         }
         StringBuilder buf = new StringBuilder();
