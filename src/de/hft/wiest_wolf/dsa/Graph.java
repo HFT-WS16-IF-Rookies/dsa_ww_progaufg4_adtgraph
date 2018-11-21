@@ -167,6 +167,8 @@ public class Graph
     {
         HashSet<Vertex> visited = new HashSet<>();
         LinkedList<Vertex> order = new LinkedList<>();
+        LinkedList<Vertex> queue = new LinkedList<>();
+
         
         Vertex start = knoten.stream()
                 .filter(v -> v.getName().equals(nameStartknoten))
@@ -174,7 +176,8 @@ public class Graph
                 .get();
         visited.add(start);
         currentV = start;
-        while(visited.size() >= knoten.size())
+        order.add(currentV);
+        while(visited.size() <= knoten.size())
         {
             
             nachbarn[currentV.getId()-1]
@@ -189,16 +192,22 @@ public class Graph
                         })
                     .forEach(v ->
                     {
-                        if (!visited.contains(v))
+                        if (!visited.contains(v) && !queue.contains(v))
                         {
-                            order.add(v);
+                            queue.addLast(v);
                         }
                     });
-            currentV = order.pollFirst();
-            visited.add(start);
+            if(!queue.isEmpty())
+            {
+                currentV = queue.pollFirst();
+                visited.add(currentV);
+                order.add(currentV);
+            }
+            
+
         }
         StringBuilder buf = new StringBuilder();
-        for (Vertex v: visited)
+        for (Vertex v: order)
         {
             buf.append(v.getName());
             buf.append(", ");
