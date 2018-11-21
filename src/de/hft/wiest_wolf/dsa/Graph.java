@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -118,10 +119,28 @@ public class Graph
 
     public boolean isEulerGraph()
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Vertex start;
+        try
+        {
+            start = knoten.stream()
+            .filter(v -> nachbarn[v.getId()-1].size()%2 != 0)
+            .findFirst().get();
+
+        }
+        catch (NoSuchElementException e)
+        {
+            start = knoten.stream().findFirst().get();
+            if ((tiefensuche(start.getName())).size() == knoten.size())
+                return true;
+            else
+                return false;
+        }
+
+        return false;
+
     }
 
-    public void tiefensuche(String nameStartknoten)
+    public LinkedList<Vertex> tiefensuche(String nameStartknoten)
     {
         HashSet<Vertex> visited = new HashSet<>();
         LinkedList<Vertex> order = new LinkedList<>();
@@ -141,6 +160,7 @@ public class Graph
             buf.deleteCharAt(buf.length()-1);
 
         System.out.print(buf.toString());
+        return order;
     }
 
     private void tiefensucheRekursiv(HashSet<Vertex> visited, LinkedList<Vertex> order, Vertex current)
