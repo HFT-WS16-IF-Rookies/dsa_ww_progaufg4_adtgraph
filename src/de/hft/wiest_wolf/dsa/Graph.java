@@ -94,7 +94,7 @@ public class Graph
         kanten.add(e);
         nachbarn[v0.getId()-1].add(e);
         nachbarn[v1.getId()-1].add(e);
-;    }
+    }
 
     public int getVertexCount()
     {
