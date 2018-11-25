@@ -237,4 +237,9 @@ public class Graph
         System.out.print(buf.toString());
         
     }
+
+    public void dijkstra(String nameStartKnoten)
+    {
+        // TODO: implement algorithm
+    }
 }

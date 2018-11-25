@@ -128,4 +128,47 @@ public class GraphTest
         }
         assertEquals(expected, baos.toString());
     }
+
+    @Test
+    public void testDijkstra() throws FileNotFoundException
+    {
+        Graph instance = new Graph(new File("./additionalFiles/exampleGraphFile.txt"));
+        String start = "E";
+        StringBuffer expected = new StringBuffer();
+        expected.append(String.format("%15s ", "Knoten"));
+        for (String s: new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{}"));
+        for (String s: new String[]{"", "", "", "", "0", "", "", "", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{B,I}"));
+        for (String s: new String[]{"", "7", "", "", "", "", "", "", "9", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,C,F,I}"));
+        for (String s: new String[]{"19", "", "11", "", "", "9", "", "", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        PrintStream orgStream = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try
+        {
+            PrintStream redirectStream = new PrintStream(baos);
+            System.setOut(redirectStream);
+            instance.dijkstra(start);
+        }
+        finally
+        {
+            System.out.flush();
+            System.setOut(orgStream);
+        }
+        System.out.println(expected);
+        assertEquals(expected.toString(), baos.toString());
+    }
 }
