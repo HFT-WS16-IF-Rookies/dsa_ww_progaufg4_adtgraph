@@ -135,69 +135,74 @@ public class GraphTest
         Graph instance = new Graph(new File("./additionalFiles/exampleGraphFile.txt"));
         String start = "E";
         StringBuffer expected = new StringBuffer();
-        expected.append(String.format("%15s ", "Knoten"));
-        for (String s: new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"})
-            expected.append(String.format("| %3s ", s));
+
+        String columnName = "{fertig}{in Arbeit}";
+        String[] knoten = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
+        int firstLen = knoten.length*2 +3 > columnName.length() ? knoten.length*2+3 : columnName.length();
+        int otherLen = 3;
+        expected.append(String.format("%" + firstLen + "s ", columnName));
+        for (String s: knoten)
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{}"));
+        expected.append(String.format("%" + firstLen + "s ", "{}{E}"));
         for (String s: new String[]{"inf", "inf", "inf", "inf", "0", "inf", "inf", "inf", "inf", "inf", "inf"})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{B,I}"));
+        expected.append(String.format("%" + firstLen + "s ", "{E}{B,I}"));
         for (String s: new String[]{"", "7", "", "", "", "", "", "", "9", "", ""})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,C,F,I}"));
-        for (String s: new String[]{"19", "", "11", "", "", "9", "", "", "", "", ""})
-            expected.append(String.format("| %3s ", s));
+        expected.append(String.format("%" + firstLen + "s ", "{B,E}{A,C,F,I}"));
+        for (String s: new String[]{"19", "7", "11", "", "", "9", "", "", "", "", ""})
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,C,G,I}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,E,F}{A,C,G,I}"));
         for (String s: new String[]{"", "", "", "", "", "9", "11", "", "", "", ""})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,C,G,J}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,E,F,I}{A,C,G,J}"));
         for (String s: new String[]{"", "", "", "", "", "", "", "", "9", "11", ""})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,D,G,J}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,I}{A,D,G,J}"));
         for (String s: new String[]{"", "", "11", "16", "", "", "", "", "", "", ""})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,D,J}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,G,I}{A,D,J}"));
         for (String s: new String[]{"", "", "", "14", "", "", "11", "", "", "", ""})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,D,K}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,G,I,J}{A,D,K}"));
         for (String s: new String[]{"", "", "", "", "", "", "", "", "", "11", "12"})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,D,H}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,G,I,J,K}{A,D,H}"));
         for (String s: new String[]{"", "", "", "", "", "", "", "15", "", "", "12"})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A,H}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,C,D,E,F,G,I,J,K}{A,H}"));
         for (String s: new String[]{"", "", "", "14", "", "", "", "", "", "", ""})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{A}"));
+        expected.append(String.format("%" + firstLen + "s ", "{B,C,D,E,F,G,H,I,J,K}{A}"));
         for (String s: new String[]{"", "", "", "", "", "", "", "15", "", "", ""})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
-        expected.append(String.format("%15s ", "{}"));
+        expected.append(String.format("%" + firstLen + "s ", "{A,B,C,D,E,F,G,H,I,J,K}{}"));
         for (String s: new String[]{"19", "7", "11", "14", "0", "9", "11", "15", "9", "11", "12"})
-            expected.append(String.format("| %3s ", s));
+            expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         PrintStream orgStream = System.out;
