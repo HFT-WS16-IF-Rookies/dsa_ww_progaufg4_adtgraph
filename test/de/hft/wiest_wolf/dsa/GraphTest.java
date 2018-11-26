@@ -141,7 +141,7 @@ public class GraphTest
         expected.append("|\n");
 
         expected.append(String.format("%15s ", "{}"));
-        for (String s: new String[]{"", "", "", "", "0", "", "", "", "", "", ""})
+        for (String s: new String[]{"inf", "inf", "inf", "inf", "0", "inf", "inf", "inf", "inf", "inf", "inf"})
             expected.append(String.format("| %3s ", s));
         expected.append("|\n");
 
@@ -152,6 +152,51 @@ public class GraphTest
 
         expected.append(String.format("%15s ", "{A,C,F,I}"));
         for (String s: new String[]{"19", "", "11", "", "", "9", "", "", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,C,G,I}"));
+        for (String s: new String[]{"", "", "", "", "", "9", "11", "", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,C,G,J}"));
+        for (String s: new String[]{"", "", "", "", "", "", "", "", "9", "11", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,D,G,J}"));
+        for (String s: new String[]{"", "", "11", "16", "", "", "", "", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,D,J}"));
+        for (String s: new String[]{"", "", "", "14", "", "", "11", "", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,D,K}"));
+        for (String s: new String[]{"", "", "", "", "", "", "", "", "", "11", "12"})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,D,H}"));
+        for (String s: new String[]{"", "", "", "", "", "", "", "15", "", "", "12"})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A,H}"));
+        for (String s: new String[]{"", "", "", "14", "", "", "", "", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{A}"));
+        for (String s: new String[]{"", "", "", "", "", "", "", "15", "", "", ""})
+            expected.append(String.format("| %3s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%15s ", "{}"));
+        for (String s: new String[]{"19", "7", "11", "14", "0", "9", "11", "15", "9", "11", "12"})
             expected.append(String.format("| %3s ", s));
         expected.append("|\n");
 
