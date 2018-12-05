@@ -146,62 +146,62 @@ public class GraphTest
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{}{E}"));
-        for (String s: new String[]{"inf", "inf", "inf", "inf", "0", "inf", "inf", "inf", "inf", "inf", "inf"})
+        for (String s: new String[]{"inf", "inf", "inf", "inf", "0.0", "inf", "inf", "inf", "inf", "inf", "inf"})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{E}{B,I}"));
-        for (String s: new String[]{"", "7", "", "", "", "", "", "", "9", "", ""})
+        for (String s: new String[]{"", "7.0", "", "", "", "", "", "", "9.0", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,E}{A,C,F,I}"));
-        for (String s: new String[]{"19", "7", "11", "", "", "9", "", "", "", "", ""})
+        for (String s: new String[]{"19.0", "7.0", "11.0", "", "", "9.0", "", "", "", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,E,F}{A,C,G,I}"));
-        for (String s: new String[]{"", "", "", "", "", "9", "11", "", "", "", ""})
+        for (String s: new String[]{"", "", "", "", "", "9.0", "11.0", "", "", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,E,F,I}{A,C,G,J}"));
-        for (String s: new String[]{"", "", "", "", "", "", "", "", "9", "11", ""})
+        for (String s: new String[]{"", "", "", "", "", "", "", "", "9.0", "11.0", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,I}{A,D,G,J}"));
-        for (String s: new String[]{"", "", "11", "16", "", "", "", "", "", "", ""})
+        for (String s: new String[]{"", "", "11.0", "16.0", "", "", "", "", "", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,G,I}{A,D,J}"));
-        for (String s: new String[]{"", "", "", "14", "", "", "11", "", "", "", ""})
+        for (String s: new String[]{"", "", "", "14.0", "", "", "11.0", "", "", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,G,I,J}{A,D,K}"));
-        for (String s: new String[]{"", "", "", "", "", "", "", "", "", "11", "12"})
+        for (String s: new String[]{"", "", "", "", "", "", "", "", "", "11.0", "12.0"})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,C,E,F,G,I,J,K}{A,D,H}"));
-        for (String s: new String[]{"", "", "", "", "", "", "", "15", "", "", "12"})
+        for (String s: new String[]{"", "", "", "", "", "", "", "15.0", "", "", "12.0"})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,C,D,E,F,G,I,J,K}{A,H}"));
-        for (String s: new String[]{"", "", "", "14", "", "", "", "", "", "", ""})
+        for (String s: new String[]{"", "", "", "14.0", "", "", "", "", "", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,C,D,E,F,G,H,I,J,K}{A}"));
-        for (String s: new String[]{"", "", "", "", "", "", "", "15", "", "", ""})
+        for (String s: new String[]{"", "", "", "", "", "", "", "15.0", "", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{A,B,C,D,E,F,G,H,I,J,K}{}"));
-        for (String s: new String[]{"19", "7", "11", "14", "0", "9", "11", "15", "9", "11", "12"})
+        for (String s: new String[]{"19.0", "7.0", "11.0", "14.0", "0.0", "9.0", "11.0", "15.0", "9.0", "11.0", "12.0"})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
