@@ -139,7 +139,7 @@ public class GraphTest
         String columnName = "{fertig}{in Arbeit}";
         String[] knoten = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
         int firstLen = knoten.length*2 +3 > columnName.length() ? knoten.length*2+3 : columnName.length();
-        int otherLen = 3;
+        int otherLen = 5;
         expected.append(String.format("%" + firstLen + "s ", columnName));
         for (String s: knoten)
             expected.append(String.format("| %" + otherLen + "s ", s));
@@ -151,7 +151,7 @@ public class GraphTest
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{E}{B,I}"));
-        for (String s: new String[]{"", "7.0", "", "", "", "", "", "", "9.0", "", ""})
+        for (String s: new String[]{"", "7.0", "", "", "0.0", "", "", "", "9.0", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
@@ -191,7 +191,7 @@ public class GraphTest
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{B,C,D,E,F,G,I,J,K}{A,H}"));
-        for (String s: new String[]{"", "", "", "14.0", "", "", "", "", "", "", ""})
+        for (String s: new String[]{"16.0", "", "", "14.0", "", "", "", "", "", "", ""})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
@@ -201,7 +201,12 @@ public class GraphTest
         expected.append("|\n");
 
         expected.append(String.format("%" + firstLen + "s ", "{A,B,C,D,E,F,G,H,I,J,K}{}"));
-        for (String s: new String[]{"19.0", "7.0", "11.0", "14.0", "0.0", "9.0", "11.0", "15.0", "9.0", "11.0", "12.0"})
+        for (String s: new String[]{"16.0", "", "", "", "", "", "", "", "", "", ""})
+            expected.append(String.format("| %" + otherLen + "s ", s));
+        expected.append("|\n");
+
+        expected.append(String.format("%" + firstLen + "s ", "{A,B,C,D,E,F,G,H,I,J,K}{}"));
+        for (String s: new String[]{"16.0", "7.0", "11.0", "14.0", "0.0", "9.0", "11.0", "15.0", "9.0", "11.0", "12.0"})
             expected.append(String.format("| %" + otherLen + "s ", s));
         expected.append("|\n");
 
@@ -218,7 +223,7 @@ public class GraphTest
             System.out.flush();
             System.setOut(orgStream);
         }
-        System.out.println(expected);
+        System.out.println(baos.toString());
         assertEquals(expected.toString(), baos.toString());
     }
 }
