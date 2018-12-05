@@ -2,6 +2,7 @@ package de.hft.wiest_wolf.dsa;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -240,6 +241,73 @@ public class Graph
 
     public void dijkstra(String nameStartKnoten)
     {
+        String columnName = "{fertig}{in Arbeit}";
+
+        int firstLen = knoten.size()*2 +3 > columnName.length() ? knoten.size()*2+3 : columnName.length();
+        int otherLen = 3;
+        System.out.print((String.format("%" + firstLen + "s ", columnName)));
+        knoten.stream()
+            .sorted((v0, v1) -> v0.getId() - v1.getId())
+            .forEach(s -> System.out.print(String.format("| %" + otherLen + "s ", s.getName())));
+        System.out.println("|");
+
+        HashMap<Vertex, Double> found           = new HashMap<>();
+        HashMap<Vertex, Double> inProgress      = new HashMap<>();
+
+        Vertex startV = knoten.stream()
+                        .filter(v -> v.getName()
+                        .equals(nameStartKnoten))
+                        .findFirst()
+                        .get();
+
+        inProgress.put(startV, 0d);
+
+        StringBuilder buf = new StringBuilder();
+        buf.append('{');
+        if (found.size() > 0)
+        {
+            found.keySet().stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+            {
+                buf.append(v.getName());
+                buf.append(",");
+            });
+            buf.deleteCharAt(buf.length()-1);
+        }
+        buf.append("}{");
+        if (inProgress.size() > 0)
+        {
+            inProgress.keySet().stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+            {
+                buf.append(v.getName());
+                buf.append(",");
+            });
+            buf.deleteCharAt(buf.length()-1);
+        }
+        buf.append("}");
+        System.out.print(String.format("%" + firstLen + "s ", buf.toString()));
+
+        buf.setLength(0);
+        knoten.stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+        {
+            Double distance = found.get(v);
+            if (distance != null)
+            {
+                buf.append(String.format("| %" + otherLen + "s ", String.valueOf(distance)));
+            }
+            else if ((distance = inProgress.get(v)) != null)
+            {
+
+                buf.append(String.format("| %" + otherLen + "s ", String.valueOf(distance)));
+            }
+            else
+            {
+
+                buf.append(String.format("| %" + otherLen + "s ", "inf"));
+            }
+        });
+        buf.append("|");
+        System.out.println(buf);
+
         // TODO: implement algorithm
     }
 }
