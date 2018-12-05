@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -244,7 +245,7 @@ public class Graph
         String columnName = "{fertig}{in Arbeit}";
 
         int firstLen = knoten.size()*2 +3 > columnName.length() ? knoten.size()*2+3 : columnName.length();
-        int otherLen = 3;
+        int otherLen = 5;
         System.out.print((String.format("%" + firstLen + "s ", columnName)));
         knoten.stream()
             .sorted((v0, v1) -> v0.getId() - v1.getId())
@@ -262,31 +263,9 @@ public class Graph
 
         inProgress.put(startV, 0d);
 
-        StringBuilder buf = new StringBuilder();
-        buf.append('{');
-        if (found.size() > 0)
-        {
-            found.keySet().stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
-            {
-                buf.append(v.getName());
-                buf.append(",");
-            });
-            buf.deleteCharAt(buf.length()-1);
-        }
-        buf.append("}{");
-        if (inProgress.size() > 0)
-        {
-            inProgress.keySet().stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
-            {
-                buf.append(v.getName());
-                buf.append(",");
-            });
-            buf.deleteCharAt(buf.length()-1);
-        }
-        buf.append("}");
-        System.out.print(String.format("%" + firstLen + "s ", buf.toString()));
+        dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
 
-        buf.setLength(0);
+        StringBuilder buf = new StringBuilder();
         knoten.stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
         {
             Double distance = found.get(v);
@@ -308,6 +287,96 @@ public class Graph
         buf.append("|");
         System.out.println(buf);
 
-        // TODO: implement algorithm
+        while (found.size() + inProgress.size() < knoten.size() || inProgress.size() > 0)
+        {
+            HashSet<Vertex> changed = new HashSet<>();
+            Vertex next = inProgress.keySet()
+                    .stream()
+                    .sorted((v0, v1) ->
+                    {
+                        int result = Double.compare(inProgress.get(v0), inProgress.get(v1));
+
+                        if (result == 0)
+                            return v0.getId() - v1.getId();
+                        else
+                            return result;
+                    })
+                    .findFirst()
+                    .get();
+
+            found.put(next, inProgress.remove(next));
+            changed.add(next);
+
+            nachbarn[next.getId()-1].forEach(e ->
+            {
+                Vertex v = e.getVertex_0() == next? e.getVertex_1() : e.getVertex_0();
+                if (!found.containsKey(v)
+                        && (!inProgress.containsKey(v)
+                        || inProgress.get(v) > e.getWeight() + found.get(next)))
+                {
+                    inProgress.put(v, e.getWeight() + found.get(next));
+                    changed.add(v);
+                }
+            });
+
+            HashMap<Vertex, Double> toPrint = new HashMap<>(found);
+            toPrint.putAll(inProgress);
+            dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
+            dijkstraPrintVertexDistance(toPrint, changed, otherLen);
+        }
+
+        HashMap<Vertex, Double> toPrint = new HashMap<>(found);
+        toPrint.putAll(inProgress);
+        dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
+        dijkstraPrintVertexDistance(toPrint, knoten, otherLen);
+    }
+
+    private void dijkstraPrintFirstColumn(Set<Vertex> found, Set<Vertex> inProgress, int formatLength)
+    {
+        StringBuilder buf = new StringBuilder();
+        buf.append('{');
+        if (found.size() > 0)
+        {
+            found.stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+            {
+                buf.append(v.getName());
+                buf.append(",");
+            });
+            buf.deleteCharAt(buf.length()-1);
+        }
+        buf.append("}{");
+        if (inProgress.size() > 0)
+        {
+            inProgress.stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+            {
+                buf.append(v.getName());
+                buf.append(",");
+            });
+            buf.deleteCharAt(buf.length()-1);
+        }
+        buf.append("}");
+        System.out.print(String.format("%" + formatLength + "s ", buf.toString()));
+    }
+
+    private void dijkstraPrintVertexDistance(HashMap<Vertex, Double> l, HashSet<Vertex> c, int formatLength)
+    {
+        knoten.stream()
+            .sorted((v0, v1) -> v0.getId() - v1.getId())
+            .forEach(v ->
+            {
+                String tmp = null;
+                if (c.contains(v))
+                {
+                    tmp = String.valueOf(l.get(v));
+                }
+                else
+                {
+                    tmp = "";
+                }
+
+                System.out.print(String.format("| %" + formatLength + "s ", tmp));
+            });
+
+        System.out.println("|");
     }
 }
