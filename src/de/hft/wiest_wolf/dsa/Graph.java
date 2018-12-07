@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import de.hft.wiest_wolf.dsa.Vertex.Coordinate;
 
@@ -139,6 +140,13 @@ public class Graph
     public int getEdgeCount()
     {
         return kanten.size();
+    }
+
+    public void deleteUnconnectedVertexes()
+    {
+        knoten = new HashSet<Vertex>(knoten.stream()
+                .filter(v -> nachbarn.get(v.getId()) != null)
+                .collect(Collectors.toSet()));
     }
 
     public long getGrad(String knotenName)
