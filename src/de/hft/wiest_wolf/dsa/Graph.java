@@ -18,16 +18,17 @@ public class Graph
 {
     private int vertexIdCounter = 0;
 
-    private HashSet<Vertex>     knoten;
-    private HashSet<Edge>       kanten;
-    private HashSet<Edge>[]     nachbarn;
-    
+    private HashSet<Vertex>                     knoten;
+    private HashSet<Edge>                       kanten;
+    private HashMap<Integer, HashSet<Edge>>     nachbarn;
+
     private Vertex currentV;
 
     public Graph(File inputFile) throws FileNotFoundException
     {
-        knoten = new HashSet<>();
-        kanten = new HashSet<>();
+        knoten          = new HashSet<>();
+        kanten          = new HashSet<>();
+        nachbarn        = new HashMap<>();
 
         try (Scanner in = new Scanner(inputFile, "utf-8"))
         {
@@ -38,10 +39,6 @@ public class Graph
 
             for (String v: vertexNames)
                 knoten.add(new Vertex(++vertexIdCounter, v.trim()));
-
-            nachbarn = new HashSet[knoten.size()];
-            for (int i=0; i<nachbarn.length; i++)
-                nachbarn[i] = new HashSet<>();
 
             while (in.hasNextLine())
             {
@@ -65,10 +62,6 @@ public class Graph
 
         for (String v: vertexNames)
             knoten.add(new Vertex(++vertexIdCounter, v.trim()));
-
-        nachbarn = new HashSet[knoten.size()];
-        for (int i=0; i<nachbarn.length; i++)
-            nachbarn[i] = new HashSet<>();
 
         for (int i=2; i<lines.length; i++)
         {
@@ -94,8 +87,24 @@ public class Graph
 
         Edge e = new Edge(v0, v1, Double.valueOf(split[2]));
         kanten.add(e);
-        nachbarn[v0.getId()-1].add(e);
-        nachbarn[v1.getId()-1].add(e);
+
+        HashSet<Edge> neighborhood = nachbarn.get(v0.getId());
+        if (neighborhood == null)
+        {
+            nachbarn.put(v0.getId(), new HashSet<>());
+            neighborhood = nachbarn.get(v0.getId());
+        }
+
+        neighborhood.add(e);
+
+        neighborhood = nachbarn.get(v1.getId());
+        if (neighborhood == null)
+        {
+            nachbarn.put(v1.getId(), new HashSet<>());
+            neighborhood = nachbarn.get(v1.getId());
+        }
+
+        neighborhood.add(e);
     }
 
     public int getVertexCount()
@@ -116,7 +125,7 @@ public class Graph
                 .get()
                 .getId();
 
-        return nachbarn[id-1].size();
+        return nachbarn.get(id).size();
     }
 
     public boolean isEulerGraph()
@@ -125,7 +134,7 @@ public class Graph
         try
         {
             start = knoten.stream()
-            .filter(v -> nachbarn[v.getId()-1].size()%2 != 0)
+            .filter(v -> nachbarn.get(v.getId()).size()%2 != 0)
             .findFirst().get();
 
         }
@@ -169,7 +178,7 @@ public class Graph
     {
         visited.add(current);
         order.addLast(current);
-        nachbarn[current.getId()-1]
+        nachbarn.get(current.getId())
                 .stream()
                 .map(e ->
                 {
@@ -202,7 +211,7 @@ public class Graph
         while(true)
         {
             
-            nachbarn[currentV.getId()-1]
+            nachbarn.get(currentV.getId())
                     .stream()
                     .sorted((e0, e1) -> Double.compare(e0.getWeight() , e1.getWeight()))
                     .map(e ->
@@ -307,7 +316,7 @@ public class Graph
             found.put(next, inProgress.remove(next));
             changed.add(next);
 
-            nachbarn[next.getId()-1].forEach(e ->
+            nachbarn.get(next.getId()).forEach(e ->
             {
                 Vertex v = e.getVertex_0() == next? e.getVertex_1() : e.getVertex_0();
                 if (!found.containsKey(v)
