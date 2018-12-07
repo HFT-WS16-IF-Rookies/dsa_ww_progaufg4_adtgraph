@@ -9,6 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
 
+import de.hft.wiest_wolf.dsa.Vertex.Coordinate;
+
 /**
  *
  * @author Lukas Wiest
@@ -93,22 +95,37 @@ public class Graph
                 .get();
 
         Edge e = new Edge(v0, v1, Double.valueOf(split[2]));
+        addEdge(e);
+    }
+
+    public void addVertex(int id, String name, Coordinate pos)
+    {
+        addVertex(new Vertex(id, name, pos));
+    }
+
+    public void addVertex(Vertex v)
+    {
+        knoten.add(v);
+    }
+
+    public void addEdge(Edge e)
+    {
         kanten.add(e);
 
-        HashSet<Edge> neighborhood = nachbarn.get(v0.getId());
+        HashSet<Edge> neighborhood = nachbarn.get(e.getVertex_0().getId());
         if (neighborhood == null)
         {
-            nachbarn.put(v0.getId(), new HashSet<>());
-            neighborhood = nachbarn.get(v0.getId());
+            nachbarn.put(e.getVertex_0().getId(), new HashSet<>());
+            neighborhood = nachbarn.get(e.getVertex_0().getId());
         }
 
         neighborhood.add(e);
 
-        neighborhood = nachbarn.get(v1.getId());
+        neighborhood = nachbarn.get(e.getVertex_1().getId());
         if (neighborhood == null)
         {
-            nachbarn.put(v1.getId(), new HashSet<>());
-            neighborhood = nachbarn.get(v1.getId());
+            nachbarn.put(e.getVertex_1().getId(), new HashSet<>());
+            neighborhood = nachbarn.get(e.getVertex_1().getId());
         }
 
         neighborhood.add(e);
