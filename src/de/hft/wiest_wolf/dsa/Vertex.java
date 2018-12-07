@@ -9,13 +9,20 @@ import java.util.Objects;
  */
 public class Vertex
 {
-    private int     id;
-    private String  name;
+    private int         id;
+    private String      name;
+    private Coordinate  pos;
 
     public Vertex(int id, String name)
     {
         this.id     = id;
         this.name   = name;
+    }
+
+    public Vertex(int id, String name, Coordinate pos)
+    {
+        this(id, name);
+        this.pos = pos;
     }
 
     public int getId()
@@ -26,6 +33,11 @@ public class Vertex
     public String getName()
     {
         return name;
+    }
+
+    public Coordinate getPosition()
+    {
+        return pos;
     }
 
     @Override
@@ -50,5 +62,17 @@ public class Vertex
             return false;
         Vertex other = (Vertex) obj;
         return id == other.id && Objects.equals(name, other.name);
+    }
+
+    public static class Coordinate
+    {
+        public final double lat;
+        public final double lon;
+
+        public Coordinate(double latitude, double longtitude)
+        {
+            this.lat = latitude;
+            this.lon = longtitude;
+        }
     }
 }
