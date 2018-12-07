@@ -24,11 +24,16 @@ public class Graph
 
     private Vertex currentV;
 
-    public Graph(File inputFile) throws FileNotFoundException
+    public Graph()
     {
         knoten          = new HashSet<>();
         kanten          = new HashSet<>();
         nachbarn        = new HashMap<>();
+    }
+
+    public Graph(File inputFile) throws FileNotFoundException
+    {
+        this();
 
         try (Scanner in = new Scanner(inputFile, "utf-8"))
         {
@@ -51,6 +56,8 @@ public class Graph
 
     public Graph(String input)
     {
+        this();
+
         String[] lines = input.split("\n");
         if (lines.length < 3)
             throw new IllegalArgumentException();
