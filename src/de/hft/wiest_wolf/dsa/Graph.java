@@ -152,6 +152,16 @@ public class Graph
         return nachbarn.get(id).size();
     }
 
+    public Vertex getVertex(long id)
+    {
+        return knoten.stream().filter(v -> v.getId() == id).findFirst().get();
+    }
+
+    public Vertex getVertex(String name)
+    {
+        return knoten.stream().filter(v -> v.getName().equals(name)).findFirst().get();
+    }
+
     public boolean isEulerGraph()
     {
         Vertex start;
