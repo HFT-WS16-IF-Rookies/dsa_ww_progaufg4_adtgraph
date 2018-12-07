@@ -22,7 +22,7 @@ public class Graph
 
     private HashSet<Vertex>                     knoten;
     private HashSet<Edge>                       kanten;
-    private HashMap<Integer, HashSet<Edge>>     nachbarn;
+    private HashMap<Long, HashSet<Edge>>        nachbarn;
 
     private Vertex currentV;
 
@@ -141,9 +141,9 @@ public class Graph
         return kanten.size();
     }
 
-    public int getGrad(String knotenName)
+    public long getGrad(String knotenName)
     {
-        int id = knoten.stream()
+        long id = knoten.stream()
                 .filter(v -> v.getName().equals(knotenName))
                 .findFirst()
                 .get()
@@ -210,7 +210,7 @@ public class Graph
                         return e.getVertex_1();
                     else
                         return e.getVertex_0();
-                }).sorted((v0, v1) -> v0.getId() - v1.getId())
+                }).sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId()))
                 .forEach(v ->
                 {
                     if (!visited.contains(v))
@@ -281,7 +281,7 @@ public class Graph
         int otherLen = 5;
         System.out.print((String.format("%" + firstLen + "s ", columnName)));
         knoten.stream()
-            .sorted((v0, v1) -> v0.getId() - v1.getId())
+            .sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId()))
             .forEach(s -> System.out.print(String.format("| %" + otherLen + "s ", s.getName())));
         System.out.println("|");
 
@@ -299,7 +299,7 @@ public class Graph
         dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
 
         StringBuilder buf = new StringBuilder();
-        knoten.stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+        knoten.stream().sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId())).forEach(v ->
         {
             Double distance = found.get(v);
             if (distance != null)
@@ -330,7 +330,7 @@ public class Graph
                         int result = Double.compare(inProgress.get(v0), inProgress.get(v1));
 
                         if (result == 0)
-                            return v0.getId() - v1.getId();
+                            return Long.compare(v0.getId(), v1.getId());
                         else
                             return result;
                     })
@@ -370,7 +370,7 @@ public class Graph
         buf.append('{');
         if (found.size() > 0)
         {
-            found.stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+            found.stream().sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId())).forEach(v ->
             {
                 buf.append(v.getName());
                 buf.append(",");
@@ -380,7 +380,7 @@ public class Graph
         buf.append("}{");
         if (inProgress.size() > 0)
         {
-            inProgress.stream().sorted((v0, v1) -> v0.getId() - v1.getId()).forEach(v ->
+            inProgress.stream().sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId())).forEach(v ->
             {
                 buf.append(v.getName());
                 buf.append(",");
@@ -394,7 +394,7 @@ public class Graph
     private void dijkstraPrintVertexDistance(HashMap<Vertex, Double> l, HashSet<Vertex> c, int formatLength)
     {
         knoten.stream()
-            .sorted((v0, v1) -> v0.getId() - v1.getId())
+            .sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId()))
             .forEach(v ->
             {
                 String tmp = null;

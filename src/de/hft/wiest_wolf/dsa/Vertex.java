@@ -9,23 +9,23 @@ import java.util.Objects;
  */
 public class Vertex
 {
-    private int         id;
+    private long        id;
     private String      name;
     private Coordinate  pos;
 
-    public Vertex(int id, String name)
+    public Vertex(long id, String name)
     {
         this.id     = id;
         this.name   = name;
     }
 
-    public Vertex(int id, String name, Coordinate pos)
+    public Vertex(long id, String name, Coordinate pos)
     {
         this(id, name);
         this.pos = pos;
     }
 
-    public int getId()
+    public long getId()
     {
         return id;
     }
