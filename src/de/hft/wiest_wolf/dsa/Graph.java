@@ -45,7 +45,7 @@ public class Graph
                 throw new ADTException.VertexCountMismatchException(vertexCount, vertexNames.length);
 
             for (String v: vertexNames)
-                knoten.add(new Vertex(++vertexIdCounter, v.trim()));
+                addVertex(new Vertex(++vertexIdCounter, v.trim()));
 
             while (in.hasNextLine())
             {
@@ -70,7 +70,7 @@ public class Graph
             throw new ADTException.VertexCountMismatchException(vertexCount, vertexNames.length);
 
         for (String v: vertexNames)
-            knoten.add(new Vertex(++vertexIdCounter, v.trim()));
+            addVertex(new Vertex(++vertexIdCounter, v.trim()));
 
         for (int i=2; i<lines.length; i++)
         {
