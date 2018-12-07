@@ -296,7 +296,7 @@ public class Graph
         buf.append("|");
         System.out.println(buf);
 
-        while (found.size() + inProgress.size() < knoten.size() || inProgress.size() > 0)
+        while (found.size() == 0 || inProgress.size() > 0)
         {
             HashSet<Vertex> changed = new HashSet<>();
             Vertex next = inProgress.keySet()
