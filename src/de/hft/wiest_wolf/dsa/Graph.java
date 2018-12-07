@@ -287,8 +287,17 @@ public class Graph
     {
         String columnName = "{fertig}{in Arbeit}";
 
-        int firstLen = knoten.size()*2 +3 > columnName.length() ? knoten.size()*2+3 : columnName.length();
-        int otherLen = 5;
+        int longestNodeName = knoten.stream()
+                .sorted((v0, v1) -> v1.getName().length() - v0.getName().length())
+                .findFirst()
+                .get()
+                .getName()
+                .length();
+
+        int firstLen = longestNodeName*knoten.size() + knoten.size() +3 > columnName.length() ?
+                longestNodeName*knoten.size() + knoten.size() +3 :
+                    columnName.length();
+        int otherLen = longestNodeName > 5 ? longestNodeName : 5;
         System.out.print((String.format("%" + firstLen + "s ", columnName)));
         knoten.stream()
             .sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId()))
