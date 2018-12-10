@@ -451,7 +451,7 @@ public class Graph
                     tmp = "";
                 }
 
-                System.out.print(String.format("| %" + formatLength + "s ", tmp));
+                System.out.print(String.format("| %" + formatLength + ".2f ", Double.valueOf(tmp)));
             });
 
         System.out.println("|");
