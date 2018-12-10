@@ -224,16 +224,16 @@ public class OsmParser
 
     private static double distanceBetweenCoordinates(Coordinate c0, Coordinate c1)
     {
-            int radius = 6371;
-            double lat = Math.toRadians(c1.lat - c0.lat);
-            double lon = Math.toRadians(c1.lon- c0.lon);
-            double a = Math.sin(lat / 2) * Math.sin(lat / 2)
-                    + Math.cos(Math.toRadians(c0.lat))
-                    * Math.cos(Math.toRadians(c1.lat))
-                    * Math.sin(lon / 2)
-                    * Math.sin(lon / 2);
-            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            double d = radius * c;
-            return Math.abs(d)*1000;
+        int radius = 6371;
+        double lat = Math.toRadians(c1.lat - c0.lat);
+        double lon = Math.toRadians(c1.lon- c0.lon);
+        double a = Math.sin(lat / 2) * Math.sin(lat / 2)
+                + Math.cos(Math.toRadians(c0.lat))
+                * Math.cos(Math.toRadians(c1.lat))
+                * Math.sin(lon / 2)
+                * Math.sin(lon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = radius * c;
+        return Math.abs(d)*1000;
     }
 }
