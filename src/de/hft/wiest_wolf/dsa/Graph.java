@@ -311,7 +311,12 @@ public class Graph
                 longestNodeName*knoten.size() + knoten.size() +3 :
                     columnName.length();
         int otherLen = longestNodeName > 5 ? longestNodeName : 5;
-        System.out.print((String.format("%" + firstLen + "s ", columnName)));
+
+        if (debug)
+        {
+            System.out.print((String.format("%" + firstLen + "s ", columnName)));
+        }
+
         knoten.stream()
             .sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId()))
             .forEach(s -> System.out.print(String.format("| %" + otherLen + "s ", s.getName())));
@@ -328,29 +333,30 @@ public class Graph
 
         inProgress.put(startV, 0d);
 
-        dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
-
-        StringBuilder buf = new StringBuilder();
-        knoten.stream().sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId())).forEach(v ->
+        if (debug)
         {
-            Double distance = found.get(v);
-            if (distance != null)
-            {
-                buf.append(String.format("| %" + otherLen + "s ", String.valueOf(distance)));
-            }
-            else if ((distance = inProgress.get(v)) != null)
-            {
+            dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
 
-                buf.append(String.format("| %" + otherLen + "s ", String.valueOf(distance)));
-            }
-            else
+            StringBuilder buf = new StringBuilder();
+            knoten.stream().sorted((v0, v1) -> Long.compare(v0.getId(), v1.getId())).forEach(v ->
             {
-
-                buf.append(String.format("| %" + otherLen + "s ", "inf"));
-            }
-        });
-        buf.append("|");
-        System.out.println(buf);
+                Double distance = found.get(v);
+                if (distance != null)
+                {
+                    buf.append(String.format("| %" + otherLen + "s ", String.valueOf(distance)));
+                }
+                else if ((distance = inProgress.get(v)) != null)
+                {
+                    buf.append(String.format("| %" + otherLen + "s ", String.valueOf(distance)));
+                }
+                else
+                {
+                    buf.append(String.format("| %" + otherLen + "s ", "inf"));
+                }
+            });
+            buf.append("|");
+            System.out.println(buf);
+        }
 
         while (found.size() == 0 || inProgress.size() > 0)
         {
@@ -386,13 +392,19 @@ public class Graph
 
             HashMap<Vertex, Double> toPrint = new HashMap<>(found);
             toPrint.putAll(inProgress);
-            dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
-            dijkstraPrintVertexDistance(toPrint, changed, otherLen);
+            if (debug)
+            {
+                dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
+                dijkstraPrintVertexDistance(toPrint, changed, otherLen);
+            }
         }
 
         HashMap<Vertex, Double> toPrint = new HashMap<>(found);
         toPrint.putAll(inProgress);
-        dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
+        if (debug)
+        {
+            dijkstraPrintFirstColumn(found.keySet(), inProgress.keySet(), firstLen);
+        }
         dijkstraPrintVertexDistance(toPrint, knoten, otherLen);
     }
 
