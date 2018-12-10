@@ -293,6 +293,11 @@ public class Graph
 
     public void dijkstra(String nameStartKnoten)
     {
+        dijkstra(nameStartKnoten, false);
+    }
+
+    public void dijkstra(String nameStartKnoten, boolean debug)
+    {
         String columnName = "{fertig}{in Arbeit}";
 
         int longestNodeName = knoten.stream()
