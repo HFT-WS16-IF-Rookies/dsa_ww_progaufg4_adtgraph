@@ -216,7 +216,7 @@ public class GraphTest
         {
             PrintStream redirectStream = new PrintStream(baos);
             System.setOut(redirectStream);
-            instance.dijkstra(start);
+            instance.dijkstra(start, true);
         }
         finally
         {
