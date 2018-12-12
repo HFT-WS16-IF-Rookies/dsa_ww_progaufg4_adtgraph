@@ -445,13 +445,14 @@ public class Graph
                 if (c.contains(v))
                 {
                     tmp = String.valueOf(l.get(v));
+                    System.out.print(String.format("| %" + formatLength + ".2f ", Double.valueOf(tmp)));
                 }
                 else
                 {
                     tmp = "";
+                    System.out.print(String.format("| %" + formatLength + "s ", tmp));
                 }
 
-                System.out.print(String.format("| %" + formatLength + ".2f ", Double.valueOf(tmp)));
             });
 
         System.out.println("|");
